@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Check</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Check Water Quality</h1>
+        <form id="parameter-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="ph">PH:</label>
+                    <input type="number" id="ph" name="ph">
+                </div>
+                <div class="form-group">
+                    <label for="hardness">Hardness:</label>
+                    <input type="number" id="hardness" name="hardness">
+                </div>
+                <div class="form-group">
+                    <label for="chloramines">Chloramines:</label>
+                    <input type="number" id="chloramines" name="chloramines">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="sulfate">Sulfate:</label>
+                    <input type="number" id="sulfate" name="sulfate">
+                </div>
+                <div class="form-group">
+                    <label for="conductivity">Conductivity:</label>
+                    <input type="number" id="conductivity" name="conductivity">
+                </div>
+                <div class="form-group">
+                    <label for="organic_carbon">Organic Carbon:</label>
+                    <input type="number" id="organic_carbon" name="organic_carbon">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="trihalomethanes">Trihalomethanes:</label>
+                    <input type="number" id="trihalomethanes" name="trihalomethanes">
+                </div>
+                <div class="form-group">
+                    <label for="turbidity">Turbidity:</label>
+                    <input type="number" id="turbidity" name="turbidity">
+                </div>
+                <!-- <div class="form-group">
+                    <label for="param9">Parameter 9:</label>
+                    <input type="number" id="param9" name="param9">
+                </div> -->
+            </div>
+            <button type="button" id="submit-btn">Check</button>
+        </form>
+        <div class="loading-bar" id="loading-bar"></div>
+        <textarea id="result" readonly></textarea>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
