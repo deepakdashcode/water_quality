@@ -1,0 +1,75 @@
+function makeCall(array)
+{
+    
+    getToken((err) => console.log(err), function () {
+        let tokenResponse;
+        try {
+            tokenResponse = JSON.parse(this.responseText);
+        } catch(ex) {
+            // TODO: handle parsing exception
+        }
+        // NOTE: manually define and pass the array(s) of values to be scored in the next line
+        const payload = `{
+            "input_data": [
+                    {
+                            "fields": [
+                                    "ph",
+                                    "Hardness",
+                                    "Solids",
+                                    "Chloramines",
+                                    "Sulfate",
+                                    "Conductivity",
+                                    "Organic_carbon",
+                                    "Trihalomethanes",
+                                    "Turbidity"
+                            ],
+                            "values": [[${array}]]
+                    }
+            ]
+    }`
+    console.log(payload)
+        const scoring_url = "https://us-south.ml.cloud.ibm.com/ml/v4/deployments/13ecb52f-1e47-46a9-aad7-9e9a89f200e5/predictions?version=2021-05-01";
+        apiPost(scoring_url, tokenResponse.access_token, payload, function (resp) {
+            let parsedPostResponse;
+            try {
+                parsedPostResponse = JSON.parse(this.responseText);
+            } catch (ex) {
+                // TODO: handle parsing exception
+            }
+            console.log("Scoring response");
+            
+            
+    
+            
+            const iterator = parsedPostResponse.predictions.values();
+            const valuesArray = [...iterator];
+            const firstObject = valuesArray[0];
+    
+    // Accessing the fields and values
+    const fields = firstObject.fields;
+    const values = firstObject.values;
+    
+    // Printing the fields
+    console.log("Fields:", fields);
+
+    data =  values[0][0];
+    console.log('returned ===== ' + data)
+    // Iterating over the values and printing them
+    // values.forEach((valueArray, index) => {
+    //   console.log(`Row ${index + 1}:`);
+    //   valueArray.forEach((value, idx) => {
+    //     console.log(`${fields[idx]}: ${value}`);
+    //     console.log(`value returned is ${value}`)
+        
+    //   });
+    // });
+        }, function (error) {
+            console.log(error);
+        });
+    }); 
+}
+
+
+/*
+Received parameters: {"ph":"6.61801090558467","hardness":"233.661635852893","solids":"19598.8607397257","chloramines":"4.70104934575262","sulfate":"432.556384963695","conductivity":"401.669790618845","organic_carbon":"11.7661464338458","trihalomethanes":"73.1919205078204","turbidity":"4.437"}, Data from makeCall: 1
+*/
